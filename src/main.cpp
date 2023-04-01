@@ -1,21 +1,42 @@
-#include "sort_text_by_beginnings.h"
+#include "alphabetic_sort.h"
+#include "file_parser.h"
 #include <assert.h>
+#include <string.h>
 #include <cstddef>
 #include <stdio.h>
 
+void print_array_of_strings(char* arr, int amount_of_lines, int max_line_len)
+{
+    for (int i = 0; i < amount_of_lines; i++) {
+        printf("%s", arr + i * max_line_len);
+    }
+}
+
+FILE* open_file(const char file_name[], const char mode[])
+{
+    FILE* file_pointer = fopen(file_name, mode);
+    // FILE* file_pointer = fopen("test.txt", "r");
+    assert(!(file_pointer == NULL) && "Could't read the file!\n");
+    return file_pointer;
+}
+
 int main()
 {
-    // FILE* file_pointer = fopen("Eugene-Onegin.txt", "r");
-    FILE* file_pointer = fopen("test.txt", "r");
-    assert(!(file_pointer == NULL) && "Could't read the file!");
+    FILE* file_pointer = open_file("Eugene-Onegin.txt", "r");
 
-    printf("%d", 1);
+    const size_t amount_of_lines = amount_of_lines_in_file(file_pointer);
+    const size_t max_line_len = max_line_length_in_file(file_pointer) + 2;
 
-    char *buffer_pointer = NULL;
-    size_t buffer_size = 0;
-    ssize_t line_length;
+    char array_of_lines[amount_of_lines][max_line_len];
 
-    // while ((line_length = getline(&buffer_pointer, &buffer_size, file_pointer)) != -1) {
+    file_to_array_of_lines(file_pointer, &(array_of_lines[0][0]), max_line_len);
 
-    // }
+    // TODO: Difference between &(a[0][0]) and just a
+    // print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
+
+    sort_by_line_ends(amount_of_lines, max_line_len, &(array_of_lines[0][0]));
+    printf("@@@\n");
+    // print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
+
+    fcloseall();
 }

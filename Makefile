@@ -20,7 +20,7 @@ GENERATED_FILES=$(wildcard $(BUILD_DIR)/*.o) $(addprefix $(BUILD_DIR)/,check bin
 TESTS=$(BUILD_DIR)/check
 TARGET=$(BUILD_DIR)/bin
 
-all: $(TARGET) $(TESTS) doc
+all: $(TARGET) doc # $(TESTS)
 
 #
 # Building the target
@@ -52,7 +52,7 @@ $(DOC_DIR)/html/index.html: $(TARGET)
 # $(BUILD_DIR)/%.o: $(TESTS_DIR)/%.cpp
 # 	$(CXX) $(CXXFLAGS) $< -o $@
 
-run:
+run: $(TARGET)
 	$(TARGET)
 
 doc: $(DOC_DIR)/html/index.html

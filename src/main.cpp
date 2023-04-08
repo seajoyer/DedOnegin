@@ -30,7 +30,7 @@ int main()
 
     char array_of_lines[amount_of_lines][max_line_len];
 
-    file_to_array_of_lines(file_pointer, &(array_of_lines[0][0]), max_line_len);
+    file_to_array_of_strings(file_pointer, &(array_of_lines[0][0]), max_line_len);
 
     print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
 

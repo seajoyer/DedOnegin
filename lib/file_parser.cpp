@@ -118,7 +118,7 @@ int amount_of_lines_in_file(FILE* file_pointer)
     return amount;
 }
 
-void file_to_array_of_lines(FILE* file_pointer, char* array_of_lines, size_t max_line_len)
+void file_to_array_of_strings(FILE* file_pointer, char* array_of_lines, size_t max_line_len)
 {
     if (file_pointer == NULL) {
         printf("Could't read the file!");

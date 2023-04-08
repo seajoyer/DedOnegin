@@ -1,9 +1,9 @@
 #include "alphabetic_sort.h"
 #include "file_parser.h"
 #include <assert.h>
-#include <string.h>
 #include <cstddef>
 #include <stdio.h>
+#include <string.h>
 
 void print_array_of_strings(char* arr, int amount_of_lines, int max_line_len)
 {
@@ -22,20 +22,20 @@ FILE* open_file(const char file_name[], const char mode[])
 
 int main()
 {
-    FILE* file_pointer = open_file("Eugene-Onegin.txt", "r");
+    FILE* file_pointer = open_file("test.txt", "r");
+    // FILE* file_pointer = open_file("Eugene-Onegin.txt", "r");
 
     const size_t amount_of_lines = amount_of_lines_in_file(file_pointer);
-    const size_t max_line_len = max_line_length_in_file(file_pointer) + 2;
+    const size_t max_line_len = max_line_length_in_file(file_pointer) + 2; // Why +2?
 
     char array_of_lines[amount_of_lines][max_line_len];
 
     file_to_array_of_lines(file_pointer, &(array_of_lines[0][0]), max_line_len);
 
-    // TODO: Difference between &(a[0][0]) and just a
-    // print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
+    print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
 
-    sort_by_line_ends(amount_of_lines, max_line_len, &(array_of_lines[0][0]));
-    printf("@@@\n");
+    // sort_by_line_ends(amount_of_lines, max_line_len, &(array_of_lines[0][0]));
+    // printf("@@@\n");
     // print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
 
     fcloseall();

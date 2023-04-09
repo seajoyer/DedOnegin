@@ -3,6 +3,8 @@
 
 #include <cstddef>
 
+void clear_string_beginning(char* buffer, char* string, size_t line_length);
+
 void sort_by_line_beginnings(size_t amount_of_lines, size_t max_line_len, char* text_to_parse);
 
 void sort_by_line_ends(size_t amount_of_lines, size_t max_line_len, char* text_to_parse);

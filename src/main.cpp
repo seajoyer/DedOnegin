@@ -1,7 +1,9 @@
 #include "alphabetic_sort.h"
 #include "file_parser.h"
 #include <assert.h>
-#include <cstddef>
+#include <ctype.h>
+#include <locale.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -22,8 +24,10 @@ FILE* open_file(const char file_name[], const char mode[])
 
 int main()
 {
-    FILE* file_pointer = open_file("test.txt", "r");
-    // FILE* file_pointer = open_file("Eugene-Onegin.txt", "r");
+    setlocale(LC_ALL, "");
+
+    // FILE* file_pointer = open_file("test.txt", "r");
+    FILE* file_pointer = open_file("Eugene-Onegin.txt", "r");
 
     const size_t amount_of_lines = amount_of_lines_in_file(file_pointer);
     const size_t max_line_len = max_line_length_in_file(file_pointer) + 2; // Why +2?
@@ -32,11 +36,17 @@ int main()
 
     file_to_array_of_strings(file_pointer, &(array_of_lines[0][0]), max_line_len);
 
+    sort_by_line_beginnings(amount_of_lines, max_line_len, &(array_of_lines[0][0]));
+
     print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
 
+    // printf("\n ~~~ \n");
+
     // sort_by_line_ends(amount_of_lines, max_line_len, &(array_of_lines[0][0]));
-    // printf("@@@\n");
+
     // print_array_of_strings(&(array_of_lines[0][0]), amount_of_lines, max_line_len);
+
+    printf("\n");
 
     fcloseall();
 }

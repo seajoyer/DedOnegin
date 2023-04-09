@@ -1,7 +1,7 @@
 #include "file_parser.h"
 #include <assert.h>
-#include <string.h>
 #include <limits.h>
+#include <string.h>
 
 //! '\n' is ignored
 int min_line_in_file(FILE* file_pointer)
@@ -126,11 +126,13 @@ void file_to_array_of_strings(FILE* file_pointer, char* array_of_lines, size_t m
 
     rewind(file_pointer);
 
-    char *buffer_pointer = NULL;
+    char* buffer_pointer = NULL;
     size_t buffer_size = 0;
     ssize_t line_length;
 
-    for (int i = 0; (line_length = getline(&buffer_pointer, &buffer_size, file_pointer)) != -1; i++) {
+    size_t i = 0;
+    while ((line_length = getline(&buffer_pointer, &buffer_size, file_pointer)) != -1) {
         strcpy(array_of_lines + i * max_line_len, buffer_pointer);
+        ++i;
     }
 }

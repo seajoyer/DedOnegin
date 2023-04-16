@@ -3,14 +3,18 @@
 
 #include <cstddef>
 
-void clear_string_beginning(char* string);
+void lowercase_string(char* string);
 
-int strcmp_alphabetically_by_beginnings(void const* void_string1, void const* void_string2);
+void clear_string_untill_alpha(char* string);
 
-int strcmp_alphabetically_by_ends(void const* void_string1, void const* void_string2);
+int compare_strings_alphabetically(void const* void_string1, void const* void_string2, int direction);
 
-void sort_by_line_beginnings(size_t amount_of_lines, size_t max_line_len, char* text_to_parse);
+int compare_strings_alphabetically_by_beginnings(void const* void_string1, void const* void_string2);
 
-void sort_by_line_ends(size_t amount_of_lines, size_t max_line_len, char* text_to_parse);
+int compare_strings_alphabetically_by_ends(void const* void_string1, void const* void_string2);
+
+void sort_strings_by_beginnings(size_t amount_of_lines, size_t max_line_len, char* text_to_parse);
+
+void sort_strings_by_ends(size_t amount_of_lines, size_t max_line_len, char* text_to_parse);
 
 #endif // SORT_BY_LINE_BEGINNINGS_H_

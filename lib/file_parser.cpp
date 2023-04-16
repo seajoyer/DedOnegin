@@ -90,20 +90,20 @@ int max_line_length_in_file(FILE* file_pointer)
 
     int max_length = 0, current_length = 0, character;
     while ((character = fgetc(file_pointer)) != EOF) {
+        ++current_length;
         if (character == '\n') {
             if (current_length > max_length)
                 max_length = current_length;
             current_length = 0;
             continue;
         }
-        ++current_length;
     }
     return max_length;
 }
 
 int amount_of_lines_in_file(FILE* file_pointer)
 {
-    if (file_pointer == NULL) {
+    if (!file_pointer) {
         printf("Could't read the file!");
         return -1;
     }

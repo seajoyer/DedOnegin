@@ -1,19 +1,19 @@
 #include "sorting_algorithms.h"
-#include "ansi_colors.h"
+#include <cstdlib>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-const size_t THRESHOLD = 2; //! The smallest number of elements to sort
+const size_t THRESHOLD = 2; //< The smallest number of elements to sort
 
-void swap(char* a, char* b, size_t size)
+void swap(char* a, char* b, size_t size) // TODO: try to improve by 8x swapping, naming
 {
     do {
         char tmp = *a;
         *a++ = *b;
         *b++ = tmp;
     } while (--size > 0);
-}
+} // TODO: compare the different ways to swap
 
 void quick_sort(void* const base, size_t total_elements, size_t size, int (*compare)(const void*, const void*))
 {
@@ -27,7 +27,7 @@ void quick_sort(void* const base, size_t total_elements, size_t size, int (*comp
 
     char* pivot = base_ptr + size * (total_elements / 2);
 
-    while (lo <= hi) {
+    while (lo <= hi) { // TODO: divide to separate function (partition)
         while (compare(base_ptr + lo * size, pivot) < 0) ++lo;
         while (compare(base_ptr + hi * size, pivot) > 0) --hi;
         if (lo > hi)

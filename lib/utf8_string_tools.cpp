@@ -9,8 +9,8 @@ char* string_reverse(char* string)
     if (!string || !*string)
         return string;
 
-    for (size_t pos_left = 0, pos_right = strlen(string) - 1;
-         pos_left < pos_right; pos_left++, pos_right--) {
+    for (size_t pos_left = 0, pos_right = strlen(string) - 1; // TODO: use existed function, use the swap fun in .h
+        pos_left < pos_right; pos_left++, pos_right--) {
 
         char ch = string[pos_left];
         string[pos_left] = string[pos_right];

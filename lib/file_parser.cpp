@@ -1,10 +1,17 @@
+/*!
+ * \file
+ * Useful functions to parse files
+ */
 #include "file_parser.h"
 #include <assert.h>
 #include <limits.h>
 #include <string.h>
 
-//! '\n' is ignored
-int min_line_in_file(FILE* file_pointer)
+/*!
+ * \param[in] file_pointer
+ * \return The number of the shortest string in the file
+ */
+size_t shortest_string_in_file(FILE* file_pointer)
 {
     if (file_pointer == NULL) {
         printf("Could't read the file!");
@@ -14,7 +21,7 @@ int min_line_in_file(FILE* file_pointer)
     rewind(file_pointer);
 
     char character;
-    size_t min_length = ULONG_MAX, min_line_index = 0;
+    size_t min_length = ULONG_MAX, min_line_index = 1;
     for (size_t i = 0, line_index = 0; (character = fgetc(file_pointer)) != EOF; i++) {
         if (character == '\n') {
             if (i < min_length) {
@@ -28,8 +35,11 @@ int min_line_in_file(FILE* file_pointer)
     return min_line_index;
 }
 
-//! '\n' is ignored
-int max_line_in_file(FILE* file_pointer)
+/*!
+ * \param[in] file_pointer
+ * \return The number of the longest string in the file
+ */
+size_t longest_string_in_file(FILE* file_pointer)
 {
     if (file_pointer == NULL) {
         printf("Could't read the file!");
@@ -39,25 +49,29 @@ int max_line_in_file(FILE* file_pointer)
     rewind(file_pointer);
 
     char character;
-    size_t max_length = 0, max_line_index = 0;
-    for (size_t i = 0, line_index = 0; (character = fgetc(file_pointer)) != EOF; i++) {
+    size_t max_length = 0, max_string_index = 1;
+    for (size_t i = 0, current_string_index = 0; (character = fgetc(file_pointer)) != EOF; i++) {
         if (character == '\n') {
             if (i > max_length) {
                 max_length = i;
-                max_line_index = line_index;
+                max_string_index = current_string_index;
             }
             i = 0;
-            ++line_index;
+            ++current_string_index;
         }
     }
-    return max_line_index;
+    return max_string_index;
 }
 
-int min_line_length_in_file(FILE* file_pointer)
+/*!
+ * \param[in] file_pointer
+ * \return The length of the shortest string in a file
+ */
+size_t min_string_length_in_file(FILE* file_pointer)
 {
     if (file_pointer == NULL) {
         printf("Could't read the file!");
-        return -1;
+        return 0;
     }
 
     rewind(file_pointer);
@@ -79,21 +93,22 @@ int min_line_length_in_file(FILE* file_pointer)
     return min_length;
 }
 
-int max_line_length_in_file(FILE* file_pointer)
+/*!
+ * \param[in] file_pointer
+ * \return The length of the longest string in a file
+ */
+size_t get_max_line_len(FILE* file_pointer)
 {
-    if (file_pointer == NULL) {
-        printf("Could't read the file!");
-        return -1;
-    }
+    assert(file_pointer && "Could't read the file!");
 
-    rewind(file_pointer);
+    rewind(file_pointer); // TODO: save the cursor position
 
-    int max_length = 0, current_length = 0, character;
+    int max_length = 0, current_length = 0, character = '\0';
     while ((character = fgetc(file_pointer)) != EOF) {
         ++current_length;
         if (character == '\n') {
             if (current_length > max_length)
-                max_length = current_length;
+                max_length = current_length; // TODO: use macro to find the max value!
             current_length = 0;
             continue;
         }
@@ -101,16 +116,20 @@ int max_line_length_in_file(FILE* file_pointer)
     return max_length;
 }
 
-int amount_of_lines_in_file(FILE* file_pointer)
+/*!
+ * \param[in] file_pointer
+ * \return The amount of strings in the file
+ */
+size_t get_line_count(FILE* file_pointer)
 {
     if (!file_pointer) {
         printf("Could't read the file!");
-        return -1;
+        return 0;
     }
 
     rewind(file_pointer);
 
-    int amount = 0, character;
+    int amount = 0, character = '\0';
     while ((character = fgetc(file_pointer)) != EOF) {
         if (character == '\n')
             ++amount;
@@ -118,7 +137,13 @@ int amount_of_lines_in_file(FILE* file_pointer)
     return amount;
 }
 
-void file_to_array_of_strings(FILE* file_pointer, char* array_of_lines, size_t max_line_len)
+/*!
+ * Convert the file's content to the array of strings
+ * \param[in] file_pointer
+ * \param[in] max_string_len The length of the longest string in the file
+ * \param[out] array_of_strings
+ */
+void file_to_array_of_strings(FILE* file_pointer, char* array_of_strings, size_t max_string_len)
 {
     if (file_pointer == NULL) {
         printf("Could't read the file!");
@@ -132,7 +157,7 @@ void file_to_array_of_strings(FILE* file_pointer, char* array_of_lines, size_t m
 
     size_t i = 0;
     while ((line_length = getline(&buffer_pointer, &buffer_size, file_pointer)) != -1) {
-        strcpy(array_of_lines + i * max_line_len, buffer_pointer);
+        strcpy(array_of_strings + i * max_string_len, buffer_pointer);
         ++i;
     }
 }

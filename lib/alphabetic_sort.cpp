@@ -48,7 +48,7 @@ void clear_string_untill_alpha(char* string)
     wcstombs(string, wbuffer, line_length);
 }
 
-int compare_strings_alphabetically(void const* void_string1, void const* void_string2, int direction)
+int compare_strings_alphabetically(void const* void_string1, void const* void_string2, int direction) // TODO: cringe
 {
     char const* string1 = (char const*)void_string1;
     char const* string2 = (char const*)void_string2;
@@ -64,9 +64,9 @@ int compare_strings_alphabetically(void const* void_string1, void const* void_st
     char string1_preprocessed[string_length];
     strcpy(string1_preprocessed, string1);
     if (direction < 0)
-        string_reverse(string1_preprocessed);
-    clear_string_untill_alpha(string1_preprocessed);
-    lowercase_string(string1_preprocessed);
+        string_reverse(string1_preprocessed); // TODO: read strings backwards
+    clear_string_untill_alpha(string1_preprocessed); // TODO: ^^
+    lowercase_string(string1_preprocessed); // TODO: ^^
 
     char string2_preprocessed[string_length];
     strcpy(string2_preprocessed, string2);
@@ -75,7 +75,7 @@ int compare_strings_alphabetically(void const* void_string1, void const* void_st
     clear_string_untill_alpha(string2_preprocessed);
     lowercase_string(string2_preprocessed);
 
-    return strcmp(string1_preprocessed, string2_preprocessed);
+    return strcmp(string1_preprocessed, string2_preprocessed); // TODO: compare wchars
 }
 
 int compare_strings_alphabetically_by_beginnings(void const* void_string1, void const* void_string2)

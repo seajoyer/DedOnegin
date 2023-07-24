@@ -1,18 +1,29 @@
 #ifndef TEXT_PARSER_H_
 #define TEXT_PARSER_H_
 
+#include <cstddef>
 #include <stdio.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <wchar.h>
 
-size_t shortest_string_in_file(FILE* file_pointer);
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-size_t longest_string_in_file(FILE* file_pointer);
+typedef struct {
+    wchar_t* content;
+    size_t length;
+} line;
 
-size_t min_string_length_in_file(FILE* file_pointer);
+typedef struct {
+    line*  lines;
+    size_t size;
+} arrayLines;
 
-size_t get_max_line_len(FILE* file_pointer);
+ssize_t    getByteSize(FILE* pFile);
 
-size_t get_line_count(FILE* file_pointer);
+arrayLines readToLines(FILE *pFile);
 
-void file_to_array_of_strings(FILE* file_pointer, char* array_of_lines, size_t max_line_len);
+void       addToFile(arrayLines lines, FILE* pFile);
 
 #endif // TEXT_PARSER_H_

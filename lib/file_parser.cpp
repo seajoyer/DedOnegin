@@ -67,10 +67,6 @@ arrayLines readToLines(FILE *pFile)
         }
     }
 
-    // printf("number_lines = %zu\n", number_lines);
-    // for (size_t i = 0; i < number_lines; i++)
-    //     printf("%ls ~ %zu\n", lines[i].content, lines[i].length);
-
     return {lines, number_lines};
 }
 

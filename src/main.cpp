@@ -54,9 +54,13 @@ int main()
     alphabetize(array_lines, -1);
     addToFile  (array_lines, out_file);
 
+    free(array_lines.lines);
+
     addInitialToFile(out_file, init, array_lines.size);
 
     fclose(out_file);
+
+    free(init);
 
     return 0;
 }

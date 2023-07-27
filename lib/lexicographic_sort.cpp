@@ -49,6 +49,8 @@ int compareLexicographically(const line line1, const line line2, int order)
         }
     }
 
+    // printf("\n\n\n%ls | %d | %zu\n%ls | %d | %zu\n\n\n", line1.content, wc1, ind1, line2.content, wc2, ind2);
+
     return towlower(wc1) - towlower(wc2);
 }
 

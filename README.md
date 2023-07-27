@@ -1,1 +1,6 @@
 # DedOnegin
+
+## TODO:
+
+- [ ] Documentation
+- [ ] README

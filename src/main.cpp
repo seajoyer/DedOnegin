@@ -1,5 +1,4 @@
-// TODO: tests (google?) basic things
-// TODO: docs in headers
+// TODO: doc
 
 #include "file_parser.h"
 #include "lexicographic_sort.h"

@@ -2,5 +2,5 @@
 
 ## TODO:
 
-- [ ] Documentation
+- [X] Documentation
 - [ ] README
